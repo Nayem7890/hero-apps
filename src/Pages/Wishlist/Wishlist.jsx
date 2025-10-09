@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { GoStarFill } from "react-icons/go";
 import { RiDownload2Fill } from "react-icons/ri";
+import toast, { Toaster } from 'react-hot-toast';
 
 const Wishlist = () => {
-    // --- All hooks must be called at the top, unconditionally ---
+    // --- All hooks must be called at the top ---
     const [installList, setInstallList] = useState([]);
     const [sortOrder, setSortOrder] = useState('none');
     const [isLoading, setIsLoading] = useState(true);
@@ -16,24 +17,14 @@ const Wishlist = () => {
         }, 500);
     }, []);
 
-
-    const parseDownloads = (downloadString) => {
-
-        return parseFloat(downloadString) || 0;
-    };
-
+    const parseDownloads = (downloadString) => parseFloat(downloadString) || 0;
 
     const sortedList = useMemo(() => {
         const listToSort = [...installList];
-        
-
-        if (sortOrder === 'none') {
-
-            return listToSort;
-        }
+        if (sortOrder === 'none') return listToSort;
 
         return listToSort.sort((a, b) => {
-            
+
             const downloadsA = parseDownloads(a.downloads);
             const downloadsB = parseDownloads(b.downloads);
 
@@ -45,7 +36,7 @@ const Wishlist = () => {
         });
     }, [installList, sortOrder]);
 
-    // --- Now that all hooks have been called, it's safe to return early ---
+
     if (isLoading) {
         return (
             <div className="flex justify-center items-center min-h-screen bg-[#F5F5F5]">
@@ -58,10 +49,16 @@ const Wishlist = () => {
         const updatedList = installList.filter(p => p.id !== id);
         setInstallList(updatedList);
         localStorage.setItem('installList', JSON.stringify(updatedList));
+
+        // 🔥 Toast message after uninstall
+        toast.success("App uninstalled successfully!");
     };
 
     return (
         <div className='bg-[#F5F5F5] pb-8 min-h-screen'>
+            {/* Toast Container */}
+            <Toaster position="top-center" reverseOrder={false} />
+
             <div className='text-center space-y-3 pt-4'>
                 <h2 className='text-[#001931] text-5xl font-bold'>Your Installed Apps</h2>
                 <p className='text-xl text-[#627382]'>
@@ -100,7 +97,8 @@ const Wishlist = () => {
                                 <img
                                     className='w-[90px] h-[90px] object-contain'
                                     src={p.image}
-                                    alt={p.title} />
+                                    alt={p.title}
+                                />
                             </figure>
                             <div className="card-body">
                                 <h2 className="card-title">{p.title}</h2>
@@ -120,7 +118,7 @@ const Wishlist = () => {
                                 <div className="card-actions justify-end">
                                     <button
                                         onClick={() => handleRemove(p.id)}
-                                        className="btn bg-[#00D390] text-white hover:bg-green-600"
+                                        className="btn bg-[#00D390] text-white hover:bg-green-800"
                                     >
                                         Uninstall
                                     </button>
@@ -134,5 +132,7 @@ const Wishlist = () => {
     );
 };
 
+
 export default Wishlist;
+
 

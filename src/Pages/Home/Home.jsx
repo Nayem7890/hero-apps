@@ -74,7 +74,7 @@ const Home = () => {
                 <h2 className='text-[#001931] text-5xl font-bold '>Trending Apps</h2>
                 <p className='text-xl text-[#627382] '>Explore All Trending Apps on the Market developed by us</p>
             </div>
-            <div className='grid grid-cols-1 md:grid-cols-4 gap-4 max-w-11/12 mx-auto py-15'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-11/12 mx-auto py-15'>
                 {featureApps.map(app => (
                     <ProductCard key={app.id} app={app}></ProductCard>
                 ))}

@@ -9,7 +9,7 @@ const ProductCard = ({app}) => {
 
     return (
         <Link to={`/app/${id}`}>
-        <div className="card bg-base-100 w-96 shadow-sm transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+        <div className="card bg-base-100 shadow-sm transition-transform duration-300 hover:scale-105 hover:shadow-lg">
   <figure>
     <img className='w-[316px] h-[316px] object-fill'
       src={image}
