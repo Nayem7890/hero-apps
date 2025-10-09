@@ -54,7 +54,7 @@ const Footer = () => {
             </nav>
             </div>
             <div className="text-white text-center p-4 mt-4 border-t border-[#E5E7EB]/20 ">
-            <p>Copyright © {new Date().getFullYear()} - All right reserved by ACME Industries Ltd</p>
+            <p>Copyright © 2025 - All right reserved</p>
           </div>
     
 

@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const ProductCard = ({app}) => {
-    console.log(app);
-    const {image, title, downloads, ratingAvg} = app
+    
+    const {image, title, downloads, ratingAvg, id} = app
 
     return (
+        <Link to={`/app/${id}`}>
         <div className="card bg-base-100 w-96 shadow-sm transition-transform duration-300 hover:scale-105 hover:shadow-lg">
   <figure>
     <img className='w-[316px] h-[316px] object-fill'
@@ -22,6 +24,7 @@ const ProductCard = ({app}) => {
     </div>
   </div>
 </div>
+        </Link>
     );
 };
 

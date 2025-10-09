@@ -5,6 +5,7 @@ import Product from "../Pages/Products/Products";
 import MainLayout from "../Layouts/MainLayout";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Wishlist from "../Pages/Wishlist/Wishlist";
+import Productdetails from "../Pages/Productdetails/Productdetails";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
             {
                 path: "/wishlist",
                 element: <Wishlist />
+            },
+            {
+                path: "/app/:id",
+                element: <Productdetails />
             }
            
         ]
