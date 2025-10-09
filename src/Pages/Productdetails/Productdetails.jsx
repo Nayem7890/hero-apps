@@ -6,15 +6,16 @@ import { FaStar } from "react-icons/fa";
 import { SlLike } from "react-icons/sl";
 import  appError from '../../assets/App-Error.png'
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 
 
 const Productdetails = () => {
     const {id} = useParams()
-    const {apps} = useApps()
+    const {apps, isLoading} = useApps()
     const navigate = useNavigate();
 
-    if (!apps || apps.length === 0) {
-    return <p className="text-center text-gray-500 mt-10">Loading app details...</p>;
+    if (isLoading || !apps) {
+    return <LoadingSpinner />;
   }
   const app = apps.find(a=> String(a.id) === id)
    

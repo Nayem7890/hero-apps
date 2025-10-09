@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { FaDownload } from "react-icons/fa";
+import { GoStarFill } from "react-icons/go";
 
 const ProductCard = ({app}) => {
     
@@ -19,8 +21,8 @@ const ProductCard = ({app}) => {
     </h2>
     
     <div className="card-actions flex justify-between items-center mt-1">
-      <div className="badge bg-[#F1F5E8] text-[#00D390] ">{downloads} </div>
-      <div className="badge bg-[#FFF0E1] text-[#FF8811]">{ratingAvg}</div>
+      <div className="badge bg-[#F1F5E8] text-[#00D390] "><FaDownload /> {downloads} </div>
+      <div className="badge bg-[#FFF0E1] text-[#FF8811]"><GoStarFill /> {ratingAvg}</div>
     </div>
   </div>
 </div>

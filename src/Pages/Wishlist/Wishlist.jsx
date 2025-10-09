@@ -3,41 +3,56 @@ import { GoStarFill } from "react-icons/go";
 import { RiDownload2Fill } from "react-icons/ri";
 
 const Wishlist = () => {
+    // --- All hooks must be called at the top, unconditionally ---
     const [installList, setInstallList] = useState([]);
     const [sortOrder, setSortOrder] = useState('none');
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const savedList = JSON.parse(localStorage.getItem('installList')) || [];
-        setInstallList(savedList);
+        setTimeout(() => {
+            const savedList = JSON.parse(localStorage.getItem('installList')) || [];
+            setInstallList(savedList);
+            setIsLoading(false);
+        }, 500);
     }, []);
 
-    // Helper function to correctly read numbers like "5000M"
+
     const parseDownloads = (downloadString) => {
-        // parseFloat is the "Relaxed Teacher" - it reads the number and ignores the 'M'.
+
         return parseFloat(downloadString) || 0;
     };
 
-    // Use useMemo to compute sorted list ONLY when installList or sortOrder changes
+
     const sortedList = useMemo(() => {
-        const listToSort = [...installList]; // Create a copy to sort
+        const listToSort = [...installList];
         
-        // If sortOrder is 'none', we don't need to sort at all!
+
         if (sortOrder === 'none') {
-            return installList;
+
+            return listToSort;
         }
 
         return listToSort.sort((a, b) => {
-            // Use our helper function to get the real numbers
+            
             const downloadsA = parseDownloads(a.downloads);
             const downloadsB = parseDownloads(b.downloads);
 
             if (sortOrder === 'downloads-asc') {
-                return downloadsA - downloadsB; // Sorts from low to high
-            } else { // This covers 'downloads-dsc'
-                return downloadsB - downloadsA; // Sorts from high to low
+                return downloadsA - downloadsB;
+            } else {
+                return downloadsB - downloadsA;
             }
         });
-    }, [installList, sortOrder]); // This is the dependency array
+    }, [installList, sortOrder]);
+
+    // --- Now that all hooks have been called, it's safe to return early ---
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center min-h-screen bg-[#F5F5F5]">
+                <span className="loading loading-spinner loading-lg"></span>
+            </div>
+        );
+    }
 
     const handleRemove = (id) => {
         const updatedList = installList.filter(p => p.id !== id);
@@ -56,7 +71,7 @@ const Wishlist = () => {
 
             <div className='max-w-11/12 mx-auto flex flex-col sm:flex-row justify-between items-center mt-6 px-4 gap-4'>
                 <h1 className='text-[#001931] font-semibold text-2xl'>
-                    ({installList.length}) Apps Found
+                    ({sortedList.length}) Apps Found
                 </h1>
 
                 <select
@@ -73,7 +88,7 @@ const Wishlist = () => {
             <div className='space-y-4 max-w-11/12 mx-auto px-4 mt-6'>
                 {sortedList.length === 0 ? (
                     <div className="text-center py-20">
-                        <p className="text-6xl">텅</p>
+                        <p className="text-6xl">🤷‍♀️</p>
                         <p className="text-2xl text-gray-500 mt-4">
                             You haven't installed any apps yet.
                         </p>
@@ -83,7 +98,7 @@ const Wishlist = () => {
                         <div key={p.id} className="card card-side bg-base-100 shadow-sm">
                             <figure className='p-4'>
                                 <img
-                                    className='w-[90px] h-[90px] object-fill'
+                                    className='w-[90px] h-[90px] object-contain'
                                     src={p.image}
                                     alt={p.title} />
                             </figure>
