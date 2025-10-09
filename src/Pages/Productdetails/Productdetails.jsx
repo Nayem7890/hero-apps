@@ -5,6 +5,9 @@ import { HiOutlineDownload } from "react-icons/hi";
 import { FaStar } from "react-icons/fa";
 import { SlLike } from "react-icons/sl";
 import  appError from '../../assets/App-Error.png'
+import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+
+
 const Productdetails = () => {
     const {id} = useParams()
     const {apps} = useApps()
@@ -18,7 +21,7 @@ const Productdetails = () => {
   if (!app) {
     
         return (
-            <div className="h-screen flex flex-col items-center justify-center bg-gray-50 text-center p-4">
+            <div className="h-screen flex flex-col items-center justify-center bg-gray-50 text-center p-4 ">
       
       <img
         src= {appError} 
@@ -39,7 +42,7 @@ const Productdetails = () => {
         );
     }
 
-  const {image, title, downloads, ratingAvg, reviews, size} = app || {}
+  const {image, title, downloads, ratingAvg, reviews, size, description} = app || {}
 
   const handleAddToInstall = ()=>{
     const existingList = JSON.parse(localStorage.getItem('installList'))
@@ -87,7 +90,36 @@ const Productdetails = () => {
        <button onClick={handleAddToInstall} className='px-5 py-2.5 bg-[#00D390] mt-3 rounded-lg cursor-pointer text-xl font-semibold text-white'>Install Now ({size} MB)</button>
       </div>
     </div>
+
+                               {/* Chart */}
+           <div className='space-y-3 max-w-11/12 mx-auto '>
+  <h2 className='font-semibold text-2xl'>Ratings</h2>
+  <div className='rounded-xl p-5 h-80 bg-white shadow'>
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart
+        data={app.ratings}
+        layout="vertical"
+        margin={{ top: 10, right: 30, left: 40, bottom: 10 }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis type="number" />
+        <YAxis dataKey="name" type="category" />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="count" fill="#FF8811" barSize={20} radius={[0, 10, 10, 0]} />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+</div>
+
+           <div className='max-w-11/12 mx-auto py-14'>
+            <h2 className='text-[#001931] font-semibold text-2xl py-4'>Description</h2>
+            <p>{description} </p>
+           </div>
             </div>
+
+           
+
         </div>
     );
 };
