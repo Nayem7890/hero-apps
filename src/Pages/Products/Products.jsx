@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useApps from '../../Hooks/useApps';
 import ProductCard from '../../Components/ProductCard/ProductCard';
+import { ClipLoader } from "react-spinners";
 
 const AnimationStyles = () => (
     <style>
@@ -16,7 +17,7 @@ const AnimationStyles = () => (
                 }
             }
 
-            /* We create a class that uses our new animation */
+
             .animate-fadeInUp {
                 animation: fadeInUp 0.5s ease-out forwards;
             }
@@ -28,16 +29,37 @@ const AnimationStyles = () => (
 const Product = () => {
     const { apps, isLoading } = useApps();
     const [search, setSearch] = useState('');
+    const [isSearching, setIsSearching] = useState(false);
+    const [debouncedSearch, setDebouncedSearch] = useState('');
+
+    
+    useEffect(() => {
+        setIsSearching(true);
+        
+        const timer = setTimeout(() => {
+            setDebouncedSearch(search);
+            setIsSearching(false);
+        }, 300); 
+
+        return () => {
+            clearTimeout(timer);
+            setIsSearching(false);
+        };
+    }, [search]);
 
     if (isLoading) {
         return (
             <div className="flex justify-center items-center min-h-screen bg-[#F5F5F5]">
-                <span className="loading loading-spinner loading-lg"></span>
+                <ClipLoader
+                    color="#632EE3"
+                    size={80}
+                    speedMultiplier={1.2}
+                />
             </div>
         );
     }
 
-    const term = search.trim().toLocaleLowerCase();
+    const term = debouncedSearch.trim().toLocaleLowerCase();
     const searchedApps = term
         ? apps.filter(app => app.title.toLocaleLowerCase().includes(term))
         : apps;
@@ -70,29 +92,41 @@ const Product = () => {
                     </label>
                 </div>
 
+               
+                {isSearching && (
+                    <div className="flex justify-center items-center py-8">
+                        <ClipLoader
+                            color="#632EE3"
+                            size={80}
+                            speedMultiplier={1.2}
+                        />
+                        <span className="ml-3 text-[#632EE3]">Searching...</span>
+                    </div>
+                )}
+
                 <div className="max-w-11/12 mx-auto py-10 px-4">
-                    {searchedApps.length > 0 ? (
+                    {!isSearching && searchedApps.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                             {searchedApps.map((app, index) => (
-                                
+
                                 <div
                                     key={app.id}
                                     className="animate-fadeInUp"
-                                    
+
                                     style={{ animationDelay: `${index * 50}ms` }}
                                 >
                                     <ProductCard app={app} />
                                 </div>
                             ))}
                         </div>
-                    ) : (
+                    ) : !isSearching && searchedApps.length === 0 ? (
                         <div className="text-center py-20 animate-fadeInUp">
                             <p className="text-6xl">🤷‍♂️</p>
                             <p className="text-2xl text-gray-500 mt-4">
                                 No applications found matching your search.
                             </p>
                         </div>
-                    )}
+                    ) : null}
                 </div>
             </div>
         </>
