@@ -1,7 +1,5 @@
 # 🚀 HERO.IO - Productive Apps Showcase
 
-![HERO.IO](https://via.placeholder.com/1200x600/632EE3/FFFFFF?text=HERO.IO+App+Showcase)
-
 ## 📋 Project Overview
 
 HERO.IO is a modern and interactive web application designed to showcase and manage productive applications. Built with React Router for fast and smooth navigation, this project allows users to browse detailed information about various apps, search through the collection, and save their favorite apps to an installation list. The application features a beautiful, responsive design with an intuitive user interface.
@@ -152,7 +150,7 @@ Before running this project, make sure you have the following software installed
 ## 🔗 Live Links and Resources
 
 ### 🌐 Live Demo
-- **Live Site**: [https://hero-apps.vercel.app](https://hero-apps.vercel.app) *(Update with your actual live link)*
+- **Live Site**: [https://starlit-liger-a77eed.netlify.app/](https://starlit-liger-a77eed.netlify.app/) *(Update with your actual live link)*
 
 ### 📚 Relevant Links
 - **GitHub Repository**: [https://github.com/Nayem7890/hero-apps](https://github.com/Nayem7890/hero-apps)
@@ -167,11 +165,8 @@ Before running this project, make sure you have the following software installed
 
 ## 📸 Screenshots
 
-> **Note**: You can add project screenshots. Add a file named `screenshot.png` or `screenshot.jpg` in the `public` folder and include it in the README like this:
-
-```markdown
-![Home Page](./public/screenshot.png)
-```
+### 🏠 Home Page
+![Home Page Screenshot](https://raw.githubusercontent.com/Nayem7890/hero-apps/main/public/hero-app.png)
 
 ## 🤝 Contributing
 
