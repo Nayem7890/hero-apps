@@ -1,28 +1,26 @@
 import { createBrowserRouter } from "react-router";
-import App from "../App";
 import Home from "../Pages/Home/Home";
-import Product from "../Pages/Products/Products";
+import Products from "../Pages/Products/Products";
 import MainLayout from "../Layouts/MainLayout";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Wishlist from "../Pages/Wishlist/Wishlist";
-import Productdetails from "../Pages/Productdetails/Productdetails";
-
+import ProductDetails from "../Pages/Productdetails/Productdetails";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout />,
-        errorElement: <ErrorPage/>,
-        hydrateFallbackElement: <p>Loading..</p>,
+        errorElement: <ErrorPage />,
+        hydrateFallbackElement: <p>Loading...</p>,
         children: [
             {
                 index: true,
                 element: <Home />,
-                loader: ()=> fetch('./appData.json')
+                loader: () => fetch('./appData.json')
             },
             {
                 path: "/products",
-                element: <Product />
+                element: <Products />
             },
             {
                 path: "/wishlist",
@@ -30,13 +28,10 @@ const router = createBrowserRouter([
             },
             {
                 path: "/app/:id",
-                element: <Productdetails />
+                element: <ProductDetails />
             }
-           
         ]
-    },
-
-
+    }
 ]);
 
 export default router;

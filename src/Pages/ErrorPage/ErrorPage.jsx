@@ -25,7 +25,7 @@ const ErrorPage = () => {
         </p>
         <button
           onClick={() => navigate(-1)}
-          className="px-5 py-2 bg-linear-to-r from-[#632EE3] to-[#9F62F2] text-white rounded-lg hover:bg-orange-600 transition"
+          className="px-5 py-2 bg-gradient-to-r from-[#632EE3] to-[#9F62F2] text-white rounded-lg hover:opacity-90 transition"
         >
           Go Back!
         </button>

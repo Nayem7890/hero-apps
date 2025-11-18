@@ -1,18 +1,17 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router';
+import { Link } from 'react-router';
 import ProductCard from '../../Components/ProductCard/ProductCard';
 import useApps from '../../Hooks/useApps';
+import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import { IoLogoGooglePlaystore } from "react-icons/io5";
 import { FaAppStoreIos } from "react-icons/fa6";
-import heroImg from '../../assets/hero.png'
+import heroImg from '../../assets/hero.png';
 
 const Home = () => {
 
-    const { apps, loading, error } = useApps()
+    const { apps, loading, error } = useApps();
 
-
-    const featureApps = apps.slice(0, 8)
-    console.log(apps);
+    const featureApps = apps.slice(0, 8);
 
 
     return (
@@ -43,8 +42,8 @@ const Home = () => {
                     </a>
                 </div>
 
-                <div className=' flex justify-center items-center'>
-                    <img className='mt-5' src={heroImg} alt="" />
+                <div className='flex justify-center items-center'>
+                    <img className='mt-5' src={heroImg} alt="Hero illustration showing productive apps" />
                 </div>
                 <div className='bg-gradient-to-br from-[#632EE3] to-[#9F62F2] text-center pb-7'>
                     <h2 className='font-bold text-5xl text-white py-5'>Trusted by Millions, Built for You</h2>
@@ -75,12 +74,27 @@ const Home = () => {
                 <p className='text-xl text-[#627382] '>Explore All Trending Apps on the Market developed by us</p>
             </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-11/12 mx-auto py-15'>
-                {featureApps.map(app => (
-                    <ProductCard key={app.id} app={app}></ProductCard>
-                ))}
+                {loading ? (
+                    <div className="col-span-full flex justify-center items-center py-20">
+                        <LoadingSpinner size="lg" />
+                    </div>
+                ) : error ? (
+                    <div className="col-span-full text-center py-20">
+                        <p className="text-red-500 text-xl">Error loading apps. Please try again later.</p>
+                    </div>
+                ) : (
+                    featureApps.map(app => (
+                        <ProductCard key={app.id} app={app} />
+                    ))
+                )}
             </div>
-            <div className='text-center '>
-                <Link to='/products' className=' font-semibold text-white bg-gradient-to-br from-[#632EE3] rounded-lg border-none to-[#9F62F2] border px-4 py-3'>Show All</Link>
+            <div className='text-center mt-8'>
+                <Link 
+                    to='/products' 
+                    className='font-semibold text-white bg-gradient-to-br from-[#632EE3] to-[#9F62F2] rounded-lg border-none px-4 py-3 hover:opacity-90 transition'
+                >
+                    Show All
+                </Link>
             </div>
         </div>
     );

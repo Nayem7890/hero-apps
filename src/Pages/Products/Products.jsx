@@ -26,8 +26,8 @@ const AnimationStyles = () => (
 );
 
 
-const Product = () => {
-    const { apps, isLoading } = useApps();
+const Products = () => {
+    const { apps, loading: isLoading } = useApps();
     const [search, setSearch] = useState('');
     const [isSearching, setIsSearching] = useState(false);
     const [debouncedSearch, setDebouncedSearch] = useState('');
@@ -133,5 +133,5 @@ const Product = () => {
     );
 };
 
-export default Product;
+export default Products;
 

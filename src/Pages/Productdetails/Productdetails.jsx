@@ -9,11 +9,19 @@ import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAx
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import toast, { Toaster } from 'react-hot-toast'; 
 
-const Productdetails = () => {
+const ProductDetails = () => {
     const { id } = useParams();
-    const { apps, isLoading } = useApps();
+    const { apps, loading: isLoading } = useApps();
     const navigate = useNavigate();
-    const [installed, setInstalled] = useState(false); 
+    const [installed, setInstalled] = useState(false);
+
+    useEffect(() => {
+        if (apps && id) {
+            const existingList = JSON.parse(localStorage.getItem('installList')) || [];
+            const isInstalled = existingList.some(p => String(p.id) === id);
+            setInstalled(isInstalled);
+        }
+    }, [apps, id]); 
 
     if (isLoading || !apps) return <LoadingSpinner />;
 
@@ -60,7 +68,11 @@ const Productdetails = () => {
             <Toaster /> 
             <div className='bg-[#F5F5F5] pb-8'>
                 <div className="max-w-11/12 flex items-center flex-col md:flex-row mx-auto p-6 rounded-xl gap-8">
-                    <img src={image} alt={title} className="w-[350px] rounded-lg object-fill bg-white p-20 shadow-xl" />
+                    <img 
+                        src={image} 
+                        alt={title} 
+                        className="w-[350px] rounded-lg object-fill bg-white p-20 shadow-xl" 
+                    />
                     <div className='flex-1'>
                         <div className='border-b-1 border-[#001931]/20'>
                             <h2 className="text-4xl font-bold text-[#001931] mb-1">{title}</h2>
@@ -89,8 +101,10 @@ const Productdetails = () => {
                         <button
                             onClick={handleAddToInstall}
                             disabled={installed}
-                            className={`px-5 py-2.5 mt-3 rounded-lg cursor-pointer text-xl font-semibold text-white transition ${
-                                installed ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#00D390] hover:bg-green-600'
+                            className={`px-5 py-2.5 mt-3 rounded-lg text-xl font-semibold text-white transition ${
+                                installed 
+                                    ? 'bg-gray-400 cursor-not-allowed' 
+                                    : 'bg-[#00D390] hover:bg-green-600 cursor-pointer'
                             }`}
                         >
                             {installed ? 'Installed' : `Install Now (${size} MB)`}
@@ -130,4 +144,4 @@ const Productdetails = () => {
     );
 };
 
-export default Productdetails;
+export default ProductDetails;
