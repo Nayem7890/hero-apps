@@ -150,7 +150,7 @@ Before running this project, make sure you have the following software installed
 ## 🔗 Live Links and Resources
 
 ### 🌐 Live Demo
-- **Live Site**: [https://starlit-liger-a77eed.netlify.app/](https://starlit-liger-a77eed.netlify.app/) *(Update with your actual live link)*
+- **Live Site**: [https://starlit-liger-a77eed.netlify.app/](https://starlit-liger-a77eed.netlify.app/)
 
 ### 📚 Relevant Links
 - **GitHub Repository**: [https://github.com/Nayem7890/hero-apps](https://github.com/Nayem7890/hero-apps)
